@@ -17,6 +17,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
           scope: '@xterr'
+      - run: yarn install
       - run: yarn build
       - run: yarn publish --access public
         env:
