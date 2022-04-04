@@ -1,6 +1,6 @@
 {
   "name": "@xterr/react-authentication",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "React Authentication based on simple JWT or OAuth 2.0 flow",
   "homepage": "https://github.com/xterr/react-authentication",
   "bugs": {
