@@ -1,7 +1,6 @@
 import jwtDecode, { JwtHeader, JwtPayload } from 'jwt-decode';
 import { FactoryInterface } from '../contracts/factory';
 import { JwtAccessTokenInterface } from '../contracts/token';
-
 import { TokenValidatorInterface } from '../contracts/validator';
 import { JwtDecodeFailureException } from '../exception';
 import { JwtAccessToken } from '../token';

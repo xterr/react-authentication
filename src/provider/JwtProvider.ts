@@ -9,11 +9,6 @@ import AbstractProvider from './AbstractProvider';
 
 export type JwtProviderOptions = {};
 
-export type JwtLoginOptions = {
-  username: string,
-  password: string,
-}
-
 export default class JwtProvider extends AbstractProvider {
   private static CACHE_KEY_ACCESS_TOKEN = 'jwt_access_token';
   private static CACHE_KEY_REFRESH_TOKEN = 'jwt_refresh_token';
