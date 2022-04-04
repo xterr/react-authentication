@@ -1,0 +1,45 @@
+{
+  "name": "@xterr/react-authentication",
+  "version": "1.0.0",
+  "description": "React Authentication based on simple JWT or OAuth 2.0 flow",
+  "homepage": "https://github.com/xterr/react-authentication",
+  "bugs": {
+    "url": "https://github.com/xterr/react-authentication/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xterr/react-authentication.git"
+  },
+  "source": "src/index.tsx",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Razvan Ceana <razvan@ceana.ro>",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "keywords": [
+    "auth",
+    "authentication",
+    "react",
+    "jwt",
+    "oauth"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
+    "react": "^17.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.181",
+    "@types/react": "^17.0.43",
+    "typescript": "^4.6.3"
+  }
+}
