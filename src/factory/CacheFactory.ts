@@ -18,9 +18,9 @@ export default class CacheFactory {
   public create (cacheClass: CacheTypes, options?: CacheOptions): CacheInterface {
     if (typeof CacheFactory.caches[ cacheClass.name ] === 'undefined') {
       throw new CacheNotSupportedException(
-        `Cache "${ cacheClass.name }" is not supported. Supported cache types are: ` +
-        `${ Object.keys(CacheFactory.caches).join(', ') }
-      `);
+        `Cache "${ cacheClass.name }" is not supported. Supported cache types are:` +
+        `${ Object.keys(CacheFactory.caches).join(', ') }`,
+      );
     }
 
     return new CacheFactory.caches[ cacheClass.name ](options);

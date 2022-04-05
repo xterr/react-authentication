@@ -20,8 +20,8 @@ export default class ProviderFactory {
     if (typeof ProviderFactory.providers[ providerClass.name ] === 'undefined') {
       throw new ProviderNotSupportedException(
         `Provider "${ providerClass.name }" is not supported. Supported providers are: ` +
-        `${ Object.keys(ProviderFactory.providers).join(', ') }
-      `);
+        `${ Object.keys(ProviderFactory.providers).join(', ') }`,
+      );
     }
 
     return new ProviderFactory.providers[ providerClass.name ](options, cache);
