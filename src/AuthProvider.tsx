@@ -145,12 +145,10 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, cache, p
     authState: state,
     login,
     logout,
-    provider: oProvider,
   }), [
     state,
     login,
     logout,
-    oProvider,
   ]);
 
   return (
