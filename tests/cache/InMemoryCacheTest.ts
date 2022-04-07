@@ -56,4 +56,11 @@ describe('InMemoryCacheTest', () => {
     expect(await oCache.get('key')).toBeNull();
     expect(await oCache.get('key2')).toBeNull();
   });
+
+  it('should respect the prefix option', async () => {
+    const oCache = new InMemoryCache({ prefix: '__prefix__' });
+    await oCache.set('key', 'value');
+
+    expect(oCache[ '_entries' ]).toEqual({ '__prefix__key': 'value' });
+  });
 });

@@ -69,4 +69,11 @@ describe('LocalStorageCacheTest', () => {
     expect(await oCache.get('key')).toBeNull();
     expect(await oCache.get('key2')).toBeNull();
   });
+
+  it('should respect the prefix option', async () => {
+    const oCache = new LocalStorageCache({ prefix: '__prefix__' });
+    await oCache.set('key', 'value');
+
+    expect(localStorage.getItem('__prefix__key')).toEqual('"value"');
+  });
 });
