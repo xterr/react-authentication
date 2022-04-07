@@ -80,10 +80,6 @@ export default class JwtAccessToken extends AbstractToken implements JwtAccessTo
   private _header: JwtHeader = {};
   private _claims: JwtPayload & Record<string, any> = {};
 
-  constructor (token: string) {
-    super(token);
-  }
-
   public getHeader (): JwtHeader {
     return this._header;
   }

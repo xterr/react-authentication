@@ -3,12 +3,7 @@ import AbstractCache, { AbstractCacheOptions } from './AbstractCache';
 export type InMemoryCacheOptions = AbstractCacheOptions;
 
 export default class InMemoryCache extends AbstractCache {
-
   private readonly _entries: Record<string, unknown> = {};
-
-  public constructor (options?: InMemoryCacheOptions) {
-    super(options);
-  }
 
   protected async _doGet<T> (key: string): Promise<T | null> {
     const cacheEntry = this._entries[ key ] as T;

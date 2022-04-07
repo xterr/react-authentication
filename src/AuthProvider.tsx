@@ -10,13 +10,13 @@ import { AuthState, LoginOptions } from './types';
 export type AuthProviderProps = {
   provider: { type: ProviderTypes, options?: ProviderOptions },
   cache?: { type: CacheTypes, options?: CacheOptions },
-}
+};
 
 type Action =
   { type: 'LOGOUT' | 'LOGIN_STARTED' }
   | { type: 'INITIALIZED', isAuthenticated: boolean }
   | { type: 'ERROR', error: Error }
-  | { type: 'REDIRECT', error: RedirectException }
+  | { type: 'REDIRECT', error: RedirectException };
 
 const initialAuthState: AuthState = {
   isAuthenticated: false,
@@ -33,7 +33,7 @@ export const hasAuthParams = (searchParams = window.location.search): boolean =>
   STATE_RE.test(searchParams);
 
 const normalizeErrorFn = (fallbackMessage: string) => (
-  error: Error | { error: string; error_description?: string } | ProgressEvent,
+  error: Error | { error: string, error_description?: string } | ProgressEvent,
 ): Error => {
   if (error instanceof Error) {
     return error;
@@ -45,7 +45,6 @@ const normalizeErrorFn = (fallbackMessage: string) => (
 export const loginError = normalizeErrorFn('Login failed');
 export const logoutError = normalizeErrorFn('Logout failed');
 export const tokenError = normalizeErrorFn('Get access token failed');
-
 
 const authReducer = (state: AuthState, action: Action): AuthState => {
   switch (action.type) {
@@ -92,8 +91,7 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, cache, p
   const oCache = useMemo(() => {
     return typeof cache !== 'undefined'
       ? new CacheFactory().create(cache.type, cache.options)
-      : new CacheFactory().create(InMemoryCache)
-      ;
+      : new CacheFactory().create(InMemoryCache);
   }, [ cache ]);
 
   const oProvider = useMemo(() => {

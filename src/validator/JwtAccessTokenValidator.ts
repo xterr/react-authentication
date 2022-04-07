@@ -17,7 +17,5 @@ export default class JwtAccessTokenValidator implements TokenValidatorInterface 
     if (token.isExpired()) {
       throw new ExpiredTokenException('Expired Jwt Token', token.getToken());
     }
-
-    return;
   }
 }

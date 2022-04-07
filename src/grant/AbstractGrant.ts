@@ -4,7 +4,7 @@ import { BadMethodCallException } from '../exception';
 export default abstract class AbstractGrant implements GrantInterface {
   public prepareRequestParameters (options: Record<string, string> = {}): Record<string, string> {
     const defaults = {
-      'grant_type': this.getName(),
+      grant_type: this.getName(),
     };
 
     const required = this.getRequiredRequestParameters();

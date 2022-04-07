@@ -1,13 +1,13 @@
 import { CacheInterface } from '../contracts/cache';
 
 export type AbstractCacheOptions = {
-  prefix?: string;
-}
+  prefix?: string,
+};
 
 export default abstract class AbstractCache implements CacheInterface {
   private readonly prefix: string = '@@auth_';
 
-  protected constructor (options?: AbstractCacheOptions) {
+  public constructor (options?: AbstractCacheOptions) {
     if (options && options.prefix) {
       this.prefix = options.prefix;
     }
