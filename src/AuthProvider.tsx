@@ -4,11 +4,11 @@ import { CacheOptions, CacheTypes, InMemoryCache } from './cache';
 import { AuthContextInterface } from './contracts';
 import { MissingTokenException, RedirectException } from './exception';
 import { CacheFactory, ProviderFactory } from './factory';
-import { ProviderOptions, ProviderTypes } from './provider';
+import { JwtProvider, ProviderOptions, ProviderTypes } from './provider';
 import { AuthState, LoginOptions } from './types';
 
 export type AuthProviderProps = {
-  provider: { type: ProviderTypes, options?: ProviderOptions },
+  provider?: { type: ProviderTypes, options?: ProviderOptions },
   cache?: { type: CacheTypes, options?: CacheOptions },
 };
 
@@ -95,7 +95,9 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, cache, p
   }, [ cache ]);
 
   const oProvider = useMemo(() => {
-    return new ProviderFactory().create(provider.type, provider.options, oCache);
+    return typeof provider !== 'undefined'
+      ? new ProviderFactory().create(provider.type, provider.options, oCache)
+      : new ProviderFactory().create(JwtProvider, {}, oCache);
   }, [ provider ]);
 
   useEffect(() => {
