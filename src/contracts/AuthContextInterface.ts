@@ -7,5 +7,5 @@ export default interface AuthContextInterface {
 
   logout (): Promise<void>;
 
-  login (options: LoginOptions): Promise<void>;
+  login<T = LoginOptions> (options: T): Promise<void>;
 }

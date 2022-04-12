@@ -1,20 +1,19 @@
 import { CacheInterface } from '../contracts/cache';
 import { ProviderInterface } from '../contracts/provider';
 import { MissingRequiredOptionException } from '../exception';
-import { LoginOptions } from '../types';
 
-export type AbstractProviderOptions = {};
+export type AbstractProviderOptions = {
+  cache?: CacheInterface,
+};
 
 export default abstract class AbstractProvider implements ProviderInterface {
-  private readonly _options: AbstractProviderOptions;
-  private readonly _cache?: CacheInterface;
+  private readonly _options?: Record<string, unknown>;
 
-  public constructor (options?: AbstractProviderOptions, cache?: CacheInterface) {
-    this._options = options ?? {};
-    this._cache = cache;
+  public constructor (options?: AbstractProviderOptions) {
+    this._options = options;
   }
 
-  public abstract login (options: LoginOptions): Promise<void>;
+  public abstract login (options: Record<string, unknown>): Promise<void>;
 
   public abstract logout (): Promise<void>;
 
@@ -22,12 +21,8 @@ export default abstract class AbstractProvider implements ProviderInterface {
 
   public abstract isAuthenticated (): boolean;
 
-  public abstract hasAccessToken (): boolean;
-
-  public abstract hasRefreshToken (): boolean;
-
-  protected _getCache (): CacheInterface | null {
-    return this._cache ?? null;
+  public supportsRefresh (): boolean {
+    return false;
   }
 
   protected _getOptions<T extends AbstractProviderOptions = Record<string, never>> (): T {

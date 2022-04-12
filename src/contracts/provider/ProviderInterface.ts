@@ -1,7 +1,5 @@
-import { LoginOptions } from '../../types';
-
 export default interface ProviderInterface {
-  login (options: LoginOptions): Promise<void>;
+  login (options: Record<string, unknown>): Promise<void>;
 
   logout (): Promise<void>;
 
@@ -9,7 +7,5 @@ export default interface ProviderInterface {
 
   isAuthenticated (): boolean;
 
-  hasAccessToken (): boolean;
-
-  hasRefreshToken (): boolean;
+  supportsRefresh (): boolean;
 }

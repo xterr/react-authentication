@@ -1,15 +1,13 @@
 import React, { FunctionComponent, useCallback, useEffect, useMemo, useReducer } from 'react';
 import AuthContext from './AuthContext';
-import { CacheOptions, CacheTypes, InMemoryCache } from './cache';
 import { AuthContextInterface } from './contracts';
+import { ProviderInterface } from './contracts/provider';
 import { MissingTokenException, RedirectException } from './exception';
-import { CacheFactory, ProviderFactory } from './factory';
-import { JwtProvider, ProviderOptions, ProviderTypes } from './provider';
+import { InMemoryProvider } from './provider';
 import { AuthState, LoginOptions } from './types';
 
 export type AuthProviderProps = {
-  provider?: { type: ProviderTypes, options?: ProviderOptions },
-  cache?: { type: CacheTypes, options?: CacheOptions },
+  provider?: ProviderInterface,
 };
 
 type Action =
@@ -85,19 +83,13 @@ const authReducer = (state: AuthState, action: Action): AuthState => {
   }
 };
 
-const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, cache, provider }) => {
+const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, provider }) => {
   const [ state, dispatch ] = useReducer(authReducer, initialAuthState);
-
-  const oCache = useMemo(() => {
-    return typeof cache !== 'undefined'
-      ? new CacheFactory().create(cache.type, cache.options)
-      : new CacheFactory().create(InMemoryCache);
-  }, [ cache ]);
 
   const oProvider = useMemo(() => {
     return typeof provider !== 'undefined'
-      ? new ProviderFactory().create(provider.type, provider.options, oCache)
-      : new ProviderFactory().create(JwtProvider, {}, oCache);
+      ? provider
+      : new InMemoryProvider();
   }, [ provider ]);
 
   useEffect(() => {
@@ -119,11 +111,11 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, cache, p
     })();
   }, [ oProvider ]);
 
-  const login = useCallback(async (options: LoginOptions) => {
+  const login = useCallback(async <T = LoginOptions> (options: T) => {
     dispatch({ type: 'LOGIN_STARTED' });
 
     try {
-      await oProvider.login(options);
+      await oProvider.login(options as never);
       dispatch({ type: 'INITIALIZED', isAuthenticated: oProvider.isAuthenticated() });
     } catch (error: any) {
       if (error instanceof RedirectException) {

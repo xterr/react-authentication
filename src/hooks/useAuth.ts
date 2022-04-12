@@ -7,7 +7,7 @@ const useAuth = (): AuthContextInterface => {
 
   useEffect(() => {
     (async (): Promise<void> => {
-      if (context.provider?.hasRefreshToken()) {
+      if (context.provider?.supportsRefresh()) {
         return;
       }
 
