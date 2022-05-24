@@ -1,5 +1,6 @@
 import { CacheInterface } from '../contracts/cache';
 import { ProviderInterface } from '../contracts/provider';
+import { JwtAccessTokenInterface, RefreshTokenInterface } from '../contracts/token';
 import { MissingRequiredOptionException } from '../exception';
 
 export type AbstractProviderOptions = {
@@ -20,6 +21,10 @@ export default abstract class AbstractProvider implements ProviderInterface {
   public abstract initialize (): Promise<void>;
 
   public abstract isAuthenticated (): boolean;
+
+  public abstract getAccessToken (): JwtAccessTokenInterface | null;
+
+  public abstract getRefreshToken (): RefreshTokenInterface | null;
 
   public supportsRefresh (): boolean {
     return false;

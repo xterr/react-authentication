@@ -74,4 +74,12 @@ export default class JwtProvider extends AbstractProvider {
   public supportsRefresh (): boolean {
     return this._oRefreshToken !== null;
   }
+
+  public getAccessToken (): JwtAccessTokenInterface | null {
+    return this._oAccessToken;
+  }
+
+  public getRefreshToken (): RefreshTokenInterface | null {
+    return this._oRefreshToken;
+  }
 }

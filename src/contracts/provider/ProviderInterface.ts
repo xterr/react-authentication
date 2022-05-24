@@ -1,3 +1,5 @@
+import { JwtAccessTokenInterface, RefreshTokenInterface } from '../token';
+
 export default interface ProviderInterface {
   login (options: Record<string, unknown>): Promise<void>;
 
@@ -8,4 +10,8 @@ export default interface ProviderInterface {
   isAuthenticated (): boolean;
 
   supportsRefresh (): boolean;
+
+  getAccessToken (): JwtAccessTokenInterface | null;
+
+  getRefreshToken (): RefreshTokenInterface | null;
 }

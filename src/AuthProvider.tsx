@@ -1,9 +1,10 @@
 import React, { FunctionComponent, useCallback, useEffect, useMemo, useReducer } from 'react';
 import AuthContext from './AuthContext';
+import { InMemoryCache } from './cache';
 import { AuthContextInterface } from './contracts';
 import { ProviderInterface } from './contracts/provider';
 import { MissingTokenException, RedirectException } from './exception';
-import { InMemoryProvider } from './provider';
+import { JwtProvider } from './provider';
 import { AuthState, LoginOptions } from './types';
 
 export type AuthProviderProps = {
@@ -89,7 +90,7 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, provider
   const oProvider = useMemo(() => {
     return typeof provider !== 'undefined'
       ? provider
-      : new InMemoryProvider();
+      : new JwtProvider({ cache: new InMemoryCache() });
   }, [ provider ]);
 
   useEffect(() => {
@@ -135,14 +136,26 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, provider
     }
   }, [ oProvider ]);
 
+  const getAccessToken = useCallback(async () => {
+    return oProvider.getAccessToken();
+  }, [ oProvider ]);
+
+  const getRefreshToken = useCallback(async () => {
+    return oProvider.getRefreshToken();
+  }, [ oProvider ]);
+
   const contextValue: AuthContextInterface = useMemo(() => ({
     authState: state,
     login,
     logout,
+    getAccessToken,
+    getRefreshToken,
   }), [
     state,
     login,
     logout,
+    getAccessToken,
+    getRefreshToken,
   ]);
 
   return (
