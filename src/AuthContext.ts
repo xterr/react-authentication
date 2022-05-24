@@ -7,13 +7,16 @@ const stub = (): never => {
 };
 
 const initialContext: AuthContextInterface = {
-  login: stub,
-  logout: stub,
   authState: {
     isRedirecting: false,
     isAuthenticated: false,
     isLoading: false,
   },
+  login: stub,
+  logout: stub,
+  getAccessToken: stub,
+  getRefreshToken: stub,
+  supportsRefresh: stub,
 };
 
 const AuthContext = React.createContext<AuthContextInterface>(initialContext);

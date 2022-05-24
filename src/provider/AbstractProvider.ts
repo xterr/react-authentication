@@ -2,6 +2,7 @@ import { CacheInterface } from '../contracts/cache';
 import { ProviderInterface } from '../contracts/provider';
 import { JwtAccessTokenInterface, RefreshTokenInterface } from '../contracts/token';
 import { MissingRequiredOptionException } from '../exception';
+import { LoginOptions } from '../types';
 
 export type AbstractProviderOptions = {
   cache?: CacheInterface,
@@ -14,7 +15,7 @@ export default abstract class AbstractProvider implements ProviderInterface {
     this._options = options;
   }
 
-  public abstract login (options: Record<string, unknown>): Promise<void>;
+  public abstract login (options: LoginOptions): Promise<void>;
 
   public abstract logout (): Promise<void>;
 

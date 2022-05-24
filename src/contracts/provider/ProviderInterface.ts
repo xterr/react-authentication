@@ -1,7 +1,8 @@
+import { LoginOptions } from '../../types';
 import { JwtAccessTokenInterface, RefreshTokenInterface } from '../token';
 
 export default interface ProviderInterface {
-  login (options: Record<string, unknown>): Promise<void>;
+  login (options: LoginOptions): Promise<void>;
 
   logout (): Promise<void>;
 

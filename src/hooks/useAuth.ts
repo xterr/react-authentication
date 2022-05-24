@@ -7,11 +7,11 @@ const useAuth = (): AuthContextInterface => {
 
   useEffect(() => {
     (async (): Promise<void> => {
-      if (context.provider?.supportsRefresh()) {
+      if (context.supportsRefresh()) {
         return;
       }
 
-      const isAuthenticated = context.provider?.isAuthenticated();
+      const isAuthenticated = context.getAccessToken() !== null && context.getAccessToken()?.isValid();
 
       if (context.authState.isAuthenticated !== isAuthenticated && isAuthenticated === false) {
         await context.logout();

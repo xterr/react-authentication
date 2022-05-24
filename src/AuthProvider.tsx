@@ -112,7 +112,7 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, provider
     })();
   }, [ oProvider ]);
 
-  const login = useCallback(async <T = LoginOptions> (options: T) => {
+  const login = useCallback(async (options: LoginOptions) => {
     dispatch({ type: 'LOGIN_STARTED' });
 
     try {
@@ -136,13 +136,11 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, provider
     }
   }, [ oProvider ]);
 
-  const getAccessToken = useCallback(async () => {
-    return oProvider.getAccessToken();
-  }, [ oProvider ]);
+  const getAccessToken = () => oProvider.getAccessToken();
 
-  const getRefreshToken = useCallback(async () => {
-    return oProvider.getRefreshToken();
-  }, [ oProvider ]);
+  const getRefreshToken = () => oProvider.getRefreshToken();
+
+  const supportsRefresh = () => oProvider.supportsRefresh();
 
   const contextValue: AuthContextInterface = useMemo(() => ({
     authState: state,
@@ -150,12 +148,14 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children, provider
     logout,
     getAccessToken,
     getRefreshToken,
+    supportsRefresh,
   }), [
     state,
     login,
     logout,
     getAccessToken,
     getRefreshToken,
+    supportsRefresh,
   ]);
 
   return (

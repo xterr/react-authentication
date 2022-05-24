@@ -1,11 +1,6 @@
-import { AuthState, LoginOptions } from '../types';
+import { AuthState } from '../types';
 import { ProviderInterface } from './provider';
 
-export default interface AuthContextInterface {
+export default interface AuthContextInterface extends Pick<ProviderInterface, 'getAccessToken' | 'getRefreshToken' | 'supportsRefresh' | 'logout' | 'login'> {
   authState: AuthState;
-  provider?: ProviderInterface;
-
-  logout (): Promise<void>;
-
-  login<T = LoginOptions> (options: T): Promise<void>;
 }
