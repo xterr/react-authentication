@@ -8,6 +8,7 @@ import { JwtProvider } from './provider';
 import { AuthState, LoginOptions } from './types';
 
 export type AuthProviderProps = {
+  children: React.ReactNode,
   provider?: ProviderInterface,
 };
 
