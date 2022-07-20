@@ -1,4 +1,5 @@
 export { default as BadMethodCallException } from './BadMethodCallException';
+export { default as LoginFailedException } from './LoginFailedException';
 export { default as RuntimeException } from './RuntimeException';
 export { default as ProviderNotSupportedException } from './ProviderNotSupportedException';
 export { default as CacheNotSupportedException } from './CacheNotSupportedException';
@@ -13,3 +14,4 @@ export { default as MissingTokenException } from './MissingTokenException';
 export { default as UnauthorizedException } from './UnauthorizedException';
 export { default as JwtDecodeFailureException } from './JwtDecodeFailureException';
 export { default as MissingRequiredOptionException } from './MissingRequiredOptionException';
+export { default as RefreshTokenFailedException } from './RefreshTokenFailedException';
