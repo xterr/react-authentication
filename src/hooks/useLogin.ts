@@ -1,7 +1,7 @@
 import { LoginFailedException } from '../exception';
 import { useAuth } from './index';
 
-const useLogin = (): (url: string, payload: Record<string, unknown>, options: RequestInit) => Promise<void> => {
+const useLogin = (): (url: string, payload: Record<string, unknown>, options?: RequestInit) => Promise<void> => {
   const { login } = useAuth();
 
   return (url, payload, options = {}) => {
