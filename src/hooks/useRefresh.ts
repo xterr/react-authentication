@@ -2,7 +2,7 @@ import { RefreshTokenFailedException } from '../exception';
 import { LoginOptions } from '../types';
 import { useAuth } from './index';
 
-const useRefresh = (): (url: string, autoLogin: boolean, options?: RequestInit) => Promise<false | LoginOptions> => {
+const useRefresh = (): (url: string, autoLogin?: boolean, options?: RequestInit) => Promise<boolean | LoginOptions> => {
   const { getRefreshToken, supportsRefresh, login } = useAuth();
 
   return (url: string, autoLogin = true, options = {}) => {
