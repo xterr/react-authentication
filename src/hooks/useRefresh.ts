@@ -1,10 +1,11 @@
 import { RefreshTokenFailedException } from '../exception';
+import { LoginOptions } from '../types';
 import { useAuth } from './index';
 
-const useRefresh = (): (url: string, options?: RequestInit) => Promise<boolean> => {
-  const { getRefreshToken, supportsRefresh } = useAuth();
+const useRefresh = (): (url: string, autoLogin: boolean, options?: RequestInit) => Promise<false | LoginOptions> => {
+  const { getRefreshToken, supportsRefresh, login } = useAuth();
 
-  return (url: string, options = {}) => {
+  return (url: string, autoLogin = true, options = {}) => {
     if (!supportsRefresh()) {
       return Promise.resolve(false);
     }
@@ -26,7 +27,22 @@ const useRefresh = (): (url: string, options?: RequestInit) => Promise<boolean> 
         throw new RefreshTokenFailedException(response.statusText);
       }
 
-      return true;
+      return response.json().then((body) => {
+        if (autoLogin) {
+          return login({
+            accessToken: body.token,
+            refreshToken: body.refresh_token,
+          }).then(() => ({
+            accessToken: body.token,
+            refreshToken: body.refresh_token,
+          }));
+        } else {
+          return {
+            accessToken: body.token,
+            refreshToken: body.refresh_token,
+          };
+        }
+      });
     });
   };
 };
